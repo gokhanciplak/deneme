@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript">
+function change(r)
+{
+    var k = r;
+var dv=document.getElementById(k).style.display
+    if (dv=='block')
+    document.getElementById(k).style.display='none';
+    else
+    document.getElementById(k).style.display='block';
+
+}
+</script>
+
+
+
+
+
+    <title></title>
+</head>
+<body>
+
+<div>
+ <table height="350" width="700" border=1>
+
+ <tr>
+     <td>{{ post.title }}</td><td>{{ post.date }}</td>
+ </tr>
+
+
+ <tr height=250>
+     <td colspan="2">{{ post.text|safe }}</td>
+ </tr>
+
+
+ <tr>
+     <td>user</td><td>categories</td>
+ </tr>
+
+
+ <tr>
+     <td>keywords</td><td align="right"> <input type="button" onclick="change('cmm')" value="comments"></td>
+ </tr>
+
+ </table>
+<div id="cmm" style="margin-left: 75pt">
+ {% for p_c in post_comments %}
+
+  <div class="main">
+    <table height="100" width="600" border="1">
+
+        <tr>
+            <td>user</td><td>date</td>
+        </tr>
+        <tr>
+            <td height="80" colspan="2">{{ p_c.id }}</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right" ><input type="button" value="replies" onclick="change('{{p_c.id}}')"> </td>
+        </tr>
+
+    </table>
+   </div>
+   <div id="{{p_c.id}}" style="display: none">
+      <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="hidden" name="replyfor" value="{{ p_c.id }}">
+
+            <input type="hidden" name="c_type" value="Comment">
+
+            <table style="margin-left: 38pt;" border="1">
+                <tr>
+                    <td>
+                        E-mail</td>
+                    <td><input type="text" name="email" value="{{user.email}}">
+                    </td>
+                </tr>
+
+                <tr>
+                   <td colspan="2">
+                        <textarea name="text" rows="7" cols="52"></textarea>
+                   </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan="2"> <input name="btn{{ p_c.id }}" type="submit" value="reply" id="create">
+                    </td>
+                </tr>
+
+
+
+           </table>
+        </form>
+
+{% for com in cc %}
+    {% ifequal com.object_id p_c.id  %}
+    <div class="sub" style="margin-left: 38pt;" >
+
+    <table height="80" width="550" border="1">
+
+        <tr>
+            <td>{{ com.user }}</td><td>{{ com.pubdate}}</td>
+        </tr>
+        <tr>
+            <td height="90" colspan="2">{{ com.text }}</td>
+        </tr>
+
+
+    </table>
+
+   </div>
+
+
+     {% endifequal %}
+
+  {% endfor %}
+       </div>
+{% endfor %}
+
+
+</div>
+    <div>
+
+<form action="." method="post">
+    {% csrf_token % }
+    <table>
+        <tr>
+            <td align="center">
+
+
+              {{user}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+               <textarea rows="9" cols="72">
+
+              </textarea>
+                <input type="hidden" name="replyfor" value="{{ post.id }}">
+                <input type="hidden" name="c_type" value="Post">
+
+            </td>
+        </tr>
+        <tr>
+                    <td colspan="2"> <input name="btn{{ p_c.id }}" type="submit" value="reply" id="create">
+                    </td>
+          </tr>
+    </table>
+  </form>
+</div>
+</div>
+
+
+
+</div>
+
+</body>
+</html>

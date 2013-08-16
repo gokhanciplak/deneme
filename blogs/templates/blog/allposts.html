@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+    </style>
+    <title></title>
+</head>
+<body>
+
+
+ {% for post in posts %}
+ <div style="max-height:209px;overflow:auto;margin-top:30px;">
+ <table height="350" width="700" border=1>
+
+ <tr>
+     <td><a href="http://127.0.0.1:8000/{{ post.id }}/showpost" > {{ post.title }}</a></a></td><td align="right">{{ post.date }}</td>
+ </tr>
+
+
+ <tr height=250>
+     <td colspan="2">{{ post.text|safe }}</td>
+ </tr>
+
+
+ <tr>
+     <td>{{ post.userid.first_name}}</td><td>categories</td>
+ </tr>
+
+
+ <tr>
+     <td colspan="2">keywords</td>
+ </tr>
+ </table>
+ </div>
+
+{% endfor %}
+
+</body>
+</html>

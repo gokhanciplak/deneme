@@ -1,0 +1,29 @@
+
+{% block page %}Register{% endblock %}
+
+{% block Content %}
+    <user>
+        {% if success %}
+            <h3> user added successfully {{ error }} </h3>
+        {% endif %}
+    {% if error %}
+<p>{{ error }}</p>
+{% endif %}
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+
+
+
+
+
+            <table><tr><td>Email</td><td>{{ user_form.email }}</td></tr>
+            <tr><td>Password</td><td>{{ user_form.password1 }}</td></tr>
+            <tr><td>Password Again</td><td>{{ user_form.password2 }}</td></tr>
+            <tr><td>First Name</td><td>{{ user_form.first_name }}</td></tr>
+            <tr><td>Last Name</td><td>{{ user_form.last_name }}</td></tr>
+            <tr><td>Image</td><td>{{ user_form.image }}</td></tr>
+            <tr><td> </td><td><input type="submit" value="Add New User" id="create">
+            <input type="reset" value="reset" id="reset"> </td></tr></table>
+        </form>
+    </user>
+{% endblock %}
