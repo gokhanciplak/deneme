@@ -7,12 +7,13 @@
     <file path="/settings.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1375337017023" ignored="false" />
     <file path="/models.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1375422996732" ignored="false" />
     <file path="/forms.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377671992776" ignored="false" />
-    <file path="/views.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377671854798" ignored="false" />
-    <file path="/urls.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1375345904012" ignored="false" />
+    <file path="/views.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377674098940" ignored="false" />
+    <file path="/urls.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377674289021" ignored="false" />
     <file path="/admin.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1375423310002" ignored="false" />
     <file path="/add_person.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1375357453352" ignored="false" />
     <file path="/add_post.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377671216544" ignored="false" />
-    <file path="/allposts.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377672623310" ignored="false" />
+    <file path="/allposts.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377674593286" ignored="false" />
+    <file path="/base.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377673752089" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blogs/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.1229053">
+            <state line="434" column="8" selection-start="17062" selection-end="17062" vertical-scroll-proportion="-26.88">
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -61,10 +62,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myposts.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blogs/templates/blog/myposts.html">
+      <file leaf-file-name="add_person.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blogs/templates/blog/add_person.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="69" selection-end="69" vertical-scroll-proportion="-1.875">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -91,7 +92,7 @@
       <file leaf-file-name="add_post.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blogs/templates/blog/add_post.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="29" selection-start="1326" selection-end="1326" vertical-scroll-proportion="-2.5">
+            <state line="31" column="29" selection-start="1326" selection-end="1326" vertical-scroll-proportion="-4.375">
               <folding />
             </state>
           </provider>
@@ -100,7 +101,7 @@
       <file leaf-file-name="allposts.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blogs/templates/blog/allposts.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="42" selection-start="427" selection-end="427" vertical-scroll-proportion="-10.0">
+            <state line="12" column="44" selection-start="253" selection-end="253" vertical-scroll-proportion="-4.9166665">
               <folding />
             </state>
           </provider>
@@ -109,16 +110,16 @@
       <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blogs/templates/blog/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="60" column="5" selection-start="2056" selection-end="2056" vertical-scroll-proportion="-21.166666">
+            <state line="90" column="42" selection-start="3472" selection-end="3472" vertical-scroll-proportion="-19.291666">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="urls.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="21" column="4" selection-start="963" selection-end="1035" vertical-scroll-proportion="0.5865922">
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -140,14 +141,14 @@
         <option value="$PROJECT_DIR$/blogs/models.py" />
         <option value="$PROJECT_DIR$/blogs/admin.py" />
         <option value="$PROJECT_DIR$/blogs/templates/blog/add_post.html" />
-        <option value="$PROJECT_DIR$/blogs/views.py" />
         <option value="$PROJECT_DIR$/blogs/forms.py" />
-        <option value="$PROJECT_DIR$/blog/urls.py" />
         <option value="$PROJECT_DIR$/blogs/templates/blog/myposts.html" />
-        <option value="$PROJECT_DIR$/blogs/templates/blog/base.html" />
         <option value="$PROJECT_DIR$/blog/settings.py" />
-        <option value="$PROJECT_DIR$/blogs/templates/blog/allposts.html" />
         <option value="$PROJECT_DIR$/blogs/templates/blog/profile.html" />
+        <option value="$PROJECT_DIR$/blogs/templates/blog/base.html" />
+        <option value="$PROJECT_DIR$/blogs/views.py" />
+        <option value="$PROJECT_DIR$/blogs/templates/blog/allposts.html" />
+        <option value="$PROJECT_DIR$/blog/urls.py" />
       </list>
     </option>
   </component>
@@ -483,13 +484,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/children2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="3.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blogs/templates/blog/conf.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -539,30 +533,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="60" column="5" selection-start="2056" selection-end="2056" vertical-scroll-proportion="-21.166666">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blog/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/add_post.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="29" selection-start="1326" selection-end="1326" vertical-scroll-proportion="-2.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/allposts.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="42" selection-start="427" selection-end="427" vertical-scroll-proportion="-10.0">
           <folding />
         </state>
       </provider>
@@ -574,15 +547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blogs/templates/blog/profile.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="11" column="19" selection-start="332" selection-end="332" vertical-scroll-proportion="-6.875">
@@ -590,11 +554,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/add_person.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="90" column="42" selection-start="3472" selection-end="3472" vertical-scroll-proportion="-19.291666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/add_post.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="29" selection-start="1326" selection-end="1326" vertical-scroll-proportion="-4.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/blogs/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.1229053">
+        <state line="434" column="8" selection-start="17062" selection-end="17062" vertical-scroll-proportion="-26.88">
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blogs/templates/blog/allposts.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="44" selection-start="253" selection-end="253" vertical-scroll-proportion="-4.9166665">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="4" selection-start="963" selection-end="1035" vertical-scroll-proportion="0.5865922">
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

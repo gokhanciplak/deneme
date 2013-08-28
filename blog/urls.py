@@ -19,11 +19,12 @@ urlpatterns = patterns('',
     url(r'^(?P<c_code>.+)/confirm/$', views.conf2, name='conf2'),
     url(r'^(?P<c_code>.+)/activate/$', views.activate, name='activate'),
     url(r'^$', views.posts, name='post'),
-    url(r'^(?P<post_id>.+)/showpost/$', views.show_post2, name='show_post'),
+    # url(r'^showpost/(?P<post_id>.+)/$', views.show_post2, name='show_post'),
     url(r'^changep/$', views.change_password, name='change_password'),
     url(r'^changee/$', views.change_email, name='change_email'),
-    url(r'^dnm/$', views.dnm, name='dnm'),
-    url(r'^(?P<post_id>.+)/dnm/$', views.dnm, name='dnm'),
+    # url(r'^dnm/$', views.dnm, name='dnm'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^dnm/(?P<post_id>.+)/$', views.dnm, name='dnm'),
 
 )
 if settings.DEBUG:

@@ -430,3 +430,6 @@ def dnm(request, post_id):
                                                 'r_user': request.user, 'form': form, },
                   context_instance=RequestContext(request))
 
+def logout():
+
+    pass

@@ -71,9 +71,9 @@
                 <ul>
                     <a href="{% url post %}"> <li> {% trans "Home" %} </li> </a>
                     {% if user.is_authenticated == False %}
-                    <a href="http://127.0.0.1:8000/login"> <li>{% trans "Login" %} </li></a>
+                    <a href="{% url login %}"> <li>{% trans "Login" %} </li></a>
 
-                    <a href="http://127.0.0.1:8000/add_person "><li>{% trans "Register" %} </li> </a>
+                    <a href="{% url add_person %} "><li>{% trans "Register" %} </li> </a>
                     {% endif %}
                     <li>{% trans "Contact" %} </li>
                     <li>{% trans "About" %} </li>
@@ -85,10 +85,10 @@
                 <br> {{user.first_name }} {{user.last_name}}</h3>
                 <ul>
                     <a href=" {% url update_user %}"> <li>{% trans "My Account" %} </li></a>
-                    <a href="http://127.0.0.1:8000/myposts"> <li>{% trans "My Posts" %} </li> </a>
+                    <a href="{% url myposts %}"> <li>{% trans "My Posts" %} </li> </a>
                     <a href="{% url change_password %}"> <li>{% trans "Change Password" %} </li> </a>
                     <a href="{% url change_email %}"> <li>{% trans "Change Email" %} </li> </a>
-                    <a href="http://127.0.0.1:8000/logout"> <li>{% trans "Logout" %} </li> </a>
+                    <a href="{% url logout %}"> <li>{% trans "Logout" %} </li> </a>
                 </ul>
             </div>
             {% endif %}
