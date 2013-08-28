@@ -1,6 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
+<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/static/admin/css/ie.css" /><![endif]-->
+
+<script type="text/javascript">window.__admin_media_prefix__ = "/static/admin/";</script>
+
+
+<script type="text/javascript" src="/admin/jsi18n/"></script>
+<script type="text/javascript" src="/static/admin/js/core.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/actions.js"></script>
+<script type="text/javascript" src="/static/admin/js/calendar.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
+<script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
     {% load i18n %}
      <style>
        .menu
@@ -64,37 +77,51 @@
     <title></title>
 </head>
 <body>
-    <div id="main-wrapper" style="width: 850px">
+    <div id="main-wrapper" style="width: 1000px;">
         <div id="menu" style="width: 200px; float: left">
             <div class="menu" >
                 <h3 style="margin-left: 40px;">Menu</h3>
                 <ul>
                     <a href="{% url post %}"> <li> {% trans "Home" %} </li> </a>
-                    {% if user.is_authenticated == False %}
-                    <a href="{% url login %}"> <li>{% trans "Login" %} </li></a>
-
-                    <a href="{% url add_person %} "><li>{% trans "Register" %} </li> </a>
-                    {% endif %}
                     <li>{% trans "Contact" %} </li>
                     <li>{% trans "About" %} </li>
                 </ul>
             </div>
-            {% if user.is_authenticated %}
+{% if user.is_authenticated %}
             <div class="menu" style="width: 200px; ">
+
                 <h3 style="margin-left: 40px;"> Welcome:
                 <br> {{user.first_name }} {{user.last_name}}</h3>
                 <ul>
+
                     <a href=" {% url update_user %}"> <li>{% trans "My Account" %} </li></a>
                     <a href="{% url myposts %}"> <li>{% trans "My Posts" %} </li> </a>
+                    <a href=" {% url addpost %}"><li> {% trans "Add New Post" %} </li></a>
                     <a href="{% url change_password %}"> <li>{% trans "Change Password" %} </li> </a>
                     <a href="{% url change_email %}"> <li>{% trans "Change Email" %} </li> </a>
                     <a href="{% url logout %}"> <li>{% trans "Logout" %} </li> </a>
+
+
+                </ul>
+            </div>
+                {% else %}
+          <div class="menu" style="width: 200px; ">
+
+                <h3 style="margin-left: 40px;"> Welcome:
+                <br> {{user.first_name }} {{user.last_name}}</h3>
+                <ul>
+
+
+
+                    <a href="{% url login %}"> <li>{% trans "Login" %} </li></a>
+
+                    <a href="{% url add_person %} "><li>{% trans "Register" %} </li> </a>
                 </ul>
             </div>
             {% endif %}
         </div>
 
-        <div id="container" style="width: 600px; float: right">
+        <div id="container" style=" width: 710px; float: right; overflow: hidden;">
             {% block Content%}
 
             {% endblock %}

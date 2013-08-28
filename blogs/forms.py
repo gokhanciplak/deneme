@@ -11,11 +11,14 @@ attrs_dict = {'class': 'required'}
 
 
 class UserCreationForm(forms.Form):
-    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict, maxlength=75)),
+    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
                              label=_(u'email address'))
-    password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict,
+                                                           render_value=False),
                                 label=_(u'password'))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict,
+                                                           render_value=False),
                                 label=_(u'password (again)'))
     first_name = forms.CharField(max_length=100)
 
@@ -32,7 +35,8 @@ class PostForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput(render_value=False), max_length=100)
+    password = forms.CharField(widget=forms.PasswordInput(render_value=False),
+                               max_length=100)
 
 
 class CommentForm(forms.ModelForm):

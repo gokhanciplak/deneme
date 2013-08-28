@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
+{% extends "blog/base.html" %}
+
+
+{% block Content %}
 <body>
 {% if error %}
 <p>{{ error }}</p>
@@ -14,5 +13,4 @@
 {{form.fields.errors}}
 <input type="submit" value="login" />
 </form>
-</body>
-</html>
+{% endblock  %}

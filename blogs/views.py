@@ -15,21 +15,18 @@ from django.contrib.contenttypes.models import ContentType
 from django.core.validators import email_re
 from django.utils.translation import ugettext
 from django.contrib import messages
+from django.contrib.auth import logout
 
-
-
-# messages.debug(request, '%s SQL statements were executed.' % count)
-# messages.info(request, 'Three credits remain in your account.')
-# messages.success(request, 'Profile details updated.')
-# messages.warning(request, 'Your account expires in three days.')
-# messages.error(request, 'Document deleted.')
 
 def add_person(request):
-    success = False
+    """
+
+    :param request:
+    :return:
+    """
     if request.method == "POST":
         user_form = UserCreationForm(request.POST, request.FILES)
         if user_form.is_valid():
-            success = True
             first_name = user_form.cleaned_data['first_name']
             last_name = user_form.cleaned_data['last_name']
             username = produce_val()
@@ -39,133 +36,81 @@ def add_person(request):
             image = user_form.cleaned_data['image']
             if password != password_t:
                 error = ugettext('Passwords have to be same')
-                return render_to_response('blog/add_person.html', {'user_form': user_form,
-                                                                   'error': error},
+                return render_to_response('blog/add_person.html',
+                                          {'user_form': user_form,
+                                           'error': error},
                                           context_instance=RequestContext(request))
-            try:
-                User.objects.get(email=email)
+
+            if User.objects.get(email=email):
                 error = ugettext('This e-mail was already in use')
                 return render_to_response('blog/add_person.html', {'user_form': user_form, 'error': error},
                                           context_instance=RequestContext(request))
-            except:
-                new_user = User(first_name=first_name, last_name=last_name, username=username,
-                                email=email, is_active=0, is_staff=0, is_superuser=0,
+            else:
+                new_user = User(first_name=first_name,
+                                last_name=last_name,
+                                username=username,
+                                email=email,
+                                is_active=0,
+                                is_staff=0,
+                                is_superuser=0,
                                 date_joined=datetime.now())
                 new_user.set_password(password)
                 new_user.save()
-                c_code = produce_val() #producing confirmation code
+                #producing confirmation code
+                c_code = produce_val()
                 send.delay(c_code, email)
                 user = new_user.id
-                new_profile = UserProfile(user_id=user, image=image, conf_code=c_code, exp_date=datetime.now())
+                new_profile = UserProfile(user_id=user,
+                                          image=image,
+                                          conf_code=c_code,
+                                          exp_date=datetime.now())
                 new_profile.save()
                 return HttpResponseRedirect('/login/')
-
     else:
         user_form = UserCreationForm()
-    ctx = {'user_form': user_form}
-    return render(request, 'blog/add_person.html', ctx, context_instance=RequestContext(request))
+    return render(request,
+                  'blog/add_person.html',
+                  {'user_form': user_form}, context_instance=RequestContext(request))
 
 
 @login_required(login_url='/login')
 def add_post(request):
     if request.method == "POST":
-        print "post"
         post_form = PostForm(request.POST, request.FILES)
         if post_form.is_valid():
-            print "valid"
             title = post_form.cleaned_data['title']
             keywords = post_form.cleaned_data['keywords']
             description = post_form.cleaned_data['description']
             image = post_form.cleaned_data['image']
             text = post_form.cleaned_data['text']
             slug = title
-            print image
             try:
-                new_post = Post(title=title, userid=request.user, slug=slug, keywords=keywords,
-                                image=image, text=text, description=description,
+                new_post = Post(title=title,
+                                userid=request.user,
+                                slug=slug,
+                                keywords=keywords,
+                                image=image,
+                                text=text,
+                                description=description,
                                 date=datetime.now())
                 new_post.save()
                 post_form = PostForm()
-
-                ctx = {'post_form': post_form}
-                return render(request, 'blog/add_post.html', ctx, context_instance=RequestContext(request))
+                return render(request,
+                              'blog/add_post.html',
+                              {'post_form': post_form},
+                              context_instance=RequestContext(request))
             except:
-                err="except"
                 user_form = UserCreationForm()
-                ctx = {'user_form': user_form}
-                return render(request, 'blog/add_person.html', ctx, context_instance=RequestContext(request))
+                return render(request,
+                              'blog/add_person.html',
+                              {'user_form': user_form},
+                              context_instance=RequestContext(request))
     else:
         post_form = PostForm()
     ctx = {'post_form': post_form}
-    return render(render, 'blog/add_post.html', ctx, context_instance=RequestContext(request))
-
-
-def show_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    comment = post.item.all()
-
-    comments_of_comment = Comment.objects.filter(content_type_id=10, )
-
-
-
-    # for i in range (item.__len__()):
-    #     try:
-    #         comments_of_comment.append(Comment.objects.get(content_type_id=10, object_id=item[i].id))
-    #     except:
-    #         pass
-
-    t = get_template('blog/posts.html')
-    html = t.render(Context({'post': post, 'post_comments': comment, 'cc': comments_of_comment, }, ))
-    return HttpResponse(html)
-
-
-def show_post2(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    comments_of_post = post.item.all()
-    id_list = []
-    for i in range (comments_of_post.__len__()):
-        id_list.append(comments_of_post[i].id)
-    my_list = []
-    for x in id_list:
-        my_list.append(x)
-        #to get only comments of comments which are made post i am listing on the page
-    comments_of_comment = Comment.objects.filter(content_type_id=10).filter(object_id__in=my_list).filter(is_active=1)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            text = form.cleaned_data["text"]
-            email = form.cleaned_data["email"]
-            c_type = request.POST.get("c_type")
-            obj_id = request.POST.get("replyfor")
-            print email
-            if c_type == "Comment":
-                c_model = Comment
-            if c_type == "Post":
-                c_model = Post
-            con_type = ContentType.objects.get_for_model(c_model)
-            new_comment = Comment(email=email, text=text, content_type=con_type, object_id=obj_id,
-                                  pubdate=datetime.now(), is_active=0)
-            new_comment.save()
-
-            if request.user.is_authenticated():
-                new_comment.is_active = 1
-                new_comment.user = request.user
-                new_comment.save()
-            else:
-                act_code = produce_val()
-                send_act_code.delay(act_code, new_comment.email)
-                print act_code
-                new_activation = Activation(conf_code=act_code, comment=new_comment,
-                                            exp_date=datetime.now(), )
-                new_activation.save()
-        form = CommentForm()
-    else:
-        form = CommentForm()
-
-    user = request.user
-    return render(request, 'blog/posts.html', {'post': post, 'post_comments': comments_of_post,
-                                               'cc': comments_of_comment, 'form': form, 'user': user},
-                  context_instance=RequestContext(request))
+    return render(render,
+                  'blog/add_post.html',
+                  ctx, context_instance=RequestContext(request))
 
 
 def loginn(request):
@@ -176,12 +121,13 @@ def loginn(request):
             'form': form,
         }, context_instance=RequestContext(request))
 
-    if request.method == 'POST': # If the form has been submitted...
-        form = LoginForm(request.POST) # A form bound to the POST data
-        if form.is_valid(): # All validation rules pass
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
-            user = authenticate(username=username, password=password)
+            user = authenticate(username=username,
+                                password=password)
             if user is not None:
                 if user.is_active:
 
@@ -205,16 +151,10 @@ def loginn(request):
             error = ugettext('form is invalid')
             return errorHandle(error)
     else:
-        form = LoginForm() # An unbound form
+        form = LoginForm()
         return render(request, 'blog/login.html', {
             'form': form,
         }, context_instance=RequestContext(request))
-
-
-def confirm(request):
-    return render_to_response('blog/confirm.html', {
-
-    }, context_instance=RequestContext(request))
 
 
 def conf2(request, c_code):
@@ -222,9 +162,9 @@ def conf2(request, c_code):
         msg = ugettext("Your email is verified")
     else:
         msg = ugettext("Your email is not verified")
-    return render(request, 'blog/conf.html', {
-        'ccode': msg, },
-                  context_instance=RequestContext(request))
+    return render(request, 'blog/conf.html',
+                           {'ccode': msg, },
+                 context_instance=RequestContext(request))
 
 
 def activate(request, c_code):
@@ -255,14 +195,16 @@ def confirm_comment(c_code):
 def posts(request):
     posts = Post.objects.order_by('-id')
     t = get_template('blog/allposts.html')
-    html = t.render(Context({'posts': posts, 'user':request.user,}))
+    html = t.render(Context({'posts': posts,
+                             'user': request.user, }))
     return HttpResponse(html)
 
 
 def my_posts(request):
     posts = Post.objects.filter(userid=request.user)
     t = get_template('blog/myposts.html')
-    html = t.render(Context({'posts': posts, 'user':request.user,}))
+    html = t.render(Context({'posts': posts,
+                             'user': request.user, }))
     return HttpResponse(html)
 
 
@@ -309,11 +251,14 @@ def update_user(request):
         try:
             user_profile.image = data2["image"]
             user_profile.save()
-            img = resize_image.delay(user_profile.image)
+            resize_image.delay(user_profile.image)
         except:
             pass
-    return render(request, 'blog/profile.html', {'user': user, 'user_p': user_profile, },
+    return render(request, 'blog/profile.html',
+                  {'user': user,
+                   'user_p': user_profile, },
                   context_instance=RequestContext(request))
+
 
 @login_required(login_url='/login')
 def change_password(request):
@@ -340,8 +285,10 @@ def change_password(request):
         else:
             error = ugettext('wrong password ')
 
-    return render(request, 'blog/changepassword.html', {'user': user, 'error': error},
+    return render(request, 'blog/changepassword.html',
+                  {'user': user, 'error': error},
                   context_instance=RequestContext(request))
+
 
 @login_required(login_url='/login')
 def change_email(request):
@@ -355,40 +302,52 @@ def change_email(request):
         data = request.POST
         email = data.get("email")
         if email_re.match(email):
-            try:
-                User.objects.get(email=email)
+
+            if User.objects.get(email=email):
                 messages.warning("You can not use this e-mail")
-                return render(request, 'blog/email.html', {'userf': form, 'user': request.user,},
+                return render(request,
+                              'blog/email.html',
+                              {'userf': form, 'user': request.user, },
                               context_instance=RequestContext(request))
-            except:
+            else:
                 user.is_active = 0
                 user.email = email
                 user.save()
-                c_code = produce_val() #producing confirmation code
+                c_code = produce_val()
                 send.delay(c_code, email)
                 user_pr = UserProfile.objects.get(user=user)
                 user_pr.conf_code = c_code
                 user_pr.exp_date = datetime.now()
                 user_pr.save()
                 messages.success(request, 'Email has been Changed .')
-                return render(request, 'blog/email.html', {'userf': form, 'error': error, 'user': request.user,},
+                return render(request, 'blog/email.html',
+                              {'userf': form,
+                               'error': error,
+                               'user': request.user, },
                               context_instance=RequestContext(request))
         else:
-            messages.error(request,"Enter a valid email")
-    return render(request, 'blog/email.html',
-                  {'userf': form, 'user': request.user,},
+            messages.error(request, "Enter a valid email")
+    return render(request,
+                  'blog/email.html',
+                  {'userf': form,
+                   'user': request.user, },
                   context_instance=RequestContext(request))
 
 
 @register.inclusion_tag('blog/children.html')
-def subcomment_tag(parent , sub):
+def subcomment_tag(parent, sub):
     parent = parent
     sub = sub
-
     return {'parent': parent, 'subs': sub, }
 
 
 def dnm(request, post_id):
+    """
+
+    :param request:
+    :param post_id:
+    :return:
+    """
     post = get_object_or_404(Post, pk=post_id)
     parents = post.item.all()
     content = ContentType.objects.get_for_model(Comment)
@@ -396,19 +355,25 @@ def dnm(request, post_id):
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
-
             text = form.cleaned_data["text"]
             email = form.cleaned_data["email"]
             c_type = request.POST.get("c_type")
             obj_id = request.POST.get("replyfor")
-            print email
-            if c_type == "Comment":
-                c_model = Comment
-            if c_type == "Post":
-                c_model = Post
+
+        if c_type == "Comment":
+            c_model = Comment
+
+        if c_type == "Post":
+            c_model = Post
+
             con_type = ContentType.objects.get_for_model(c_model)
-            new_comment = Comment(email=email, text=text, content_type=con_type, parent=post_id, object_id=obj_id,
-                                  pubdate=datetime.now(), is_active=0)
+            new_comment = Comment(email=email,
+                                  text=text,
+                                  content_type=con_type,
+                                  parent=post_id,
+                                  object_id=obj_id,
+                                  pubdate=datetime.now(),
+                                  is_active=0)
             new_comment.save()
 
             if request.user.is_authenticated():
@@ -416,20 +381,38 @@ def dnm(request, post_id):
                 new_comment.user = request.user
                 new_comment.save()
             else:
-                act_code = produce_val()
-                send_act_code.delay(act_code, new_comment.email)
-                print act_code
-                new_activation = Activation(conf_code=act_code, comment=new_comment,
-                                            exp_date=datetime.now(), )
-                new_activation.save()
+
+                if email_check(email):
+                    return HttpResponseRedirect('/')
+                else:
+                    act_code = produce_val()
+                    send_act_code.delay(act_code,
+                                        new_comment.email)
+                    new_activation = Activation(conf_code=act_code,
+                                                comment=new_comment,
+                                                exp_date=datetime.now(), )
+                    new_activation.save()
         form = CommentForm()
     else:
         form = CommentForm()
 
-    return render(request, 'blog/deneme.html', {'parents': parents, 'subs': subs, 'post': post,
-                                                'r_user': request.user, 'form': form, },
+    return render(request, 'blog/deneme.html', {'parents': parents,
+                                                'subs': subs, 'post': post,
+                                                'r_user': request.user,
+                                                'form': form, },
                   context_instance=RequestContext(request))
 
-def logout():
 
-    pass
+@login_required(login_url='/login')
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+def email_check(email):
+    try:
+        User.objects.get(email=email)
+        return True
+    except:
+        return False
+

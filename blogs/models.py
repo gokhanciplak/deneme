@@ -41,9 +41,9 @@ class Comment(models.Model):
 
 class Post(models.Model):
     userid = models.ForeignKey(User)
-    title = models.CharField(u"Head", max_length = 255)
+    title = models.CharField(u"Head", max_length=255)
     slug = models.SlugField(u"Slug")
-    keywords = models.CharField(u"Keywords", max_length = 255)
+    keywords = models.CharField(u"Keywords", max_length=255)
     date = models.DateField(u"Date")
     description = models.TextField(u"Description")
     image = models.ImageField(u"Image", upload_to="images")
