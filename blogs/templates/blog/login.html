@@ -11,6 +11,7 @@
 <form action="." method="POST">
 {% csrf_token %}
 {{ form.as_p }}
+{{form.fields.errors}}
 <input type="submit" value="login" />
 </form>
 </body>

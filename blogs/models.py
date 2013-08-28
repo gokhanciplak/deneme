@@ -10,8 +10,9 @@ class UserProfile(models.Model):
 
     user = models.ForeignKey(User)
     image= models.ImageField(null=True, upload_to="images")
-    confcode=models.CharField(max_length=100)
-    expdate=models.DateField()
+    interests=models.CharField(max_length=50)
+    conf_code=models.CharField(max_length=50)
+    exp_date=models.DateField()
 
 class Category(models.Model):
 
@@ -27,6 +28,8 @@ class Contact(models.Model):
     message = models.TextField(u"message")
 
 class Comment(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
+    parent= models.PositiveIntegerField()
     email = models.EmailField(u"E-Mail")
     content_type = models.ForeignKey(ContentType)
     object_id = models.PositiveIntegerField()

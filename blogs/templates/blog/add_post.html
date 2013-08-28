@@ -1,4 +1,5 @@
-
+{% extends "blog/base.html" %}
+{% block Content %}
 <head>
 <title>Add post | Django site admin</title>
 <link rel="stylesheet" type="text/css" href="/static/admin/css/base.css" />
@@ -18,16 +19,59 @@
 <script type="text/javascript" src="/static/admin/js/admin/DateTimeShortcuts.js"></script>
 <script type="text/javascript" src="/static/ckeditor/ckeditor/ckeditor.js"></script>
 
-<meta name="robots" content="NONE,NOARCHIVE" />
-</head>
-    <user>
 
-        <form method="post" action="." enctype="multipart/form-data">
+
+
+
+
+
+
+    <table style="margin: 0px;">
+     <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
+          <tr align="center">
+            <td colspan="3"> <h3> Add New Post {{ err }} </h3> </td>
+        </tr>
 
-            {{ post_form.as_p }}
+        <tr>
+            <td>Title</td><td>{{ post_form.title}}</td><td>{{ post_form.title.errors }}</td>
+        </tr>
 
-            <input type="submit" value="Add New Post" id="create">
-            <input type="reset" value="reset" id="reset">
-        </form>
-    </user>
+        <tr>
+             <td>Descripton</td><td>{{ post_form.description }}</td><td>{{ post_form.description.errors }}</td>
+        </tr>
+
+        <tr>
+             <td>Text</td><td>{{ post_form.text }}</td><td>{{ post_form.text.errors }}</td>
+        </tr>
+        <tr>
+             <td>Image</td><td>{{ post_form.image }}</td><td>{{ post_form.image.errors }}</td>
+        </tr>
+
+        <tr>
+            <td>Keywords</td><td>{{ post_form.keywords}}</td><td>{{ post_form.keywords.errors }}</td>
+        </tr>
+
+        <tr>
+            <td>Categories</td><td>{{ post_form.categories }}</td><td>{{ post_form.categories.errors }}</td>
+        </tr>
+
+        <tr >
+            <td align="right" > <input type="submit" value="Add New Post" id="create"></td><td> <input type="reset" value="reset" id="reset"></td>
+        </tr>
+         </form>
+    </table>
+
+ {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

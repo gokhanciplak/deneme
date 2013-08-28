@@ -1,0 +1,148 @@
+ {% extends "blog/base.html" %}
+{% block page %}Index{% endblock %}
+{% block Content %}
+
+<style>
+        .comment
+    {
+        background-color: #fffee8;
+        width: 350px;
+        height: 70px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+        </style>
+<script>
+  function change(r)
+{
+    var k = r;
+var dv=document.getElementById(k).style.display
+    if (dv=='block')
+    document.getElementById(k).style.display='none';
+    else
+    document.getElementById(k).style.display='block';
+
+}
+  function change_types(r,s)
+{
+    var k = r;
+    var m= s;
+    var dv=document.getElementById('rp')
+    dv.value=k;
+    var rv=document.getElementById('ct')
+    rv.value=m;
+
+
+
+}
+</script>
+
+ <div class="post" style="width: 720px;">
+ <table height="350" width="700" >
+
+ <tr>
+     <td>{{ post.title }}</td><td>{{ post.date }}</td>
+ </tr>
+
+
+ <tr height=250>
+     <td colspan="2">{{ post.text|safe }}</td>
+ </tr>
+
+
+ <tr>
+     <td>{{ post.userid.first_name }} {{post.userid.last_name  }}</td>
+     <td>
+         {{ post.categories.name  }}
+     </td>
+ </tr>
+
+asa
+ <tr>
+     <td>{{ post.keywords}}</td>
+
+     <td align="right"> <input type="button" onclick="change('cmm')" value="comments">
+         <a href="#com"><input type="button"  value="reply" onclick="change_types('{{post.id}}','Post')"></a></td>
+ </tr>
+
+ </table>
+        </div>
+<div id="cmm" style="margin-left: 200px; display: none;">
+<ul>
+{% for parent in  parents %}
+<li>
+
+  <div class="comment" style="height: 140px; width: 500px;" >
+        <p>{{parent.user.first_name}} {{parent.user.last_name}}----{{parent.pubdate}} </p>
+         <p>{{parent.text}}</p>
+    <input type="button"  value="replies" onclick="change('{{parent.id}}')"> <a href="#com">
+      <input type="button"  value="reply" onclick="change_types('{{parent.id}}','Comment')"></a>
+  </div>
+  <div id="{{ parent.id }}">
+     {% for sub in  subs %}
+        {%if parent.id == sub.object_id%}
+        <ul  >
+        <li>
+
+
+
+        {% subcomment_tag  parent subs %}
+
+        </li>
+        </ul>
+        {%endif%}
+     {% endfor %}
+  </div>
+ </li>
+{% endfor %}
+</ul>
+
+</div>
+  <form id="com" method="post" action="." enctype="multipart/form-data">
+    {%csrf_token%}
+    <table>
+            <tr>
+
+
+                    <td>
+                        E-mail:
+                        {% if r_user %}
+                        <input type="text" name="email" value="{{r_user.email}}">
+
+                        {% else %}
+                        {{form.email}}
+                        {% endif%}
+
+
+                    </td>
+                </tr>
+
+        <tr>
+            <td>
+
+               <textarea name="text" rows="7" cols="65">
+
+              </textarea>
+                <input type="hidden" id="rp" name="replyfor" value="{{ post.id }}">
+                <input type="hidden" id="ct" name="c_type" value="Post">
+
+            </td>
+        </tr>
+        <tr>
+                    <td align="right" colspan="2"> <input name="btn" type="submit" value="reply" id="creates">
+                    </td>
+          </tr>
+    </table>
+</form>
+        {% endblock %}

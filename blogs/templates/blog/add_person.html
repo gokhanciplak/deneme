@@ -16,12 +16,12 @@
 
 
 
-            <table><tr><td>Email</td><td>{{ user_form.email }}</td></tr>
-            <tr><td>Password</td><td>{{ user_form.password1 }}</td></tr>
-            <tr><td>Password Again</td><td>{{ user_form.password2 }}</td></tr>
-            <tr><td>First Name</td><td>{{ user_form.first_name }}</td></tr>
-            <tr><td>Last Name</td><td>{{ user_form.last_name }}</td></tr>
-            <tr><td>Image</td><td>{{ user_form.image }}</td></tr>
+            <table><tr><td>Email</td><td>{{ user_form.email }}</td><td>{{ user_form.email.errors }}</td></tr>
+            <tr><td>Password</td><td>{{ user_form.password1 }}</td><td>{{ user_form.password1.errors }}</td></tr>
+            <tr><td>Password Again</td><td>{{ user_form.password2 }}<td>{{ user_form.password2.errors }}</td></td></tr>
+            <tr><td>First Name</td><td>{{ user_form.first_name }}</td><td>{{ user_form.first_name.errors }}</td></tr>
+            <tr><td>Last Name</td><td>{{ user_form.last_name }}</td><td>{{ user_form.last_name.errors }}</td></tr>
+            <tr><td>Image</td><td>{{ user_form.image }}</td><td>{{ user_form.image.errors }}</td></tr>
             <tr><td> </td><td><input type="submit" value="Add New User" id="create">
             <input type="reset" value="reset" id="reset"> </td></tr></table>
         </form>

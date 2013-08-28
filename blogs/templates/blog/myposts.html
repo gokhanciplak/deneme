@@ -1,21 +1,16 @@
 {% extends "blog/base.html" %}
-
-
+  {% load i18n %}
 {% block Content %}
 
-
+<a href=" {% url addpost %}"> {% trans "Add New Post" %} </a>
     {% for post in posts %}
 
          <div class="post" style="overflow:auto;margin-top:30px; width: 720px;">
+
          <table width="700">
 
          <tr>
-             <td><a href="http://127.0.0.1:8000/{{ post.id }}/dnm" > {{ post.title }}</a></td>
-             <td align="right">{{ post.date }}</td>
-         </tr>
-         <tr>
-             <td colspan="2"> <img src="{{MEDIA_URL}}{{ post.image }}" alt="some_text"> </td>
-
+             <td><a href="http://127.0.0.1:8000/{{ post.id }}/dnm" > {{ post.title }}</a></a></td><td align="right">{{ post.date }}</td>
          </tr>
 
 

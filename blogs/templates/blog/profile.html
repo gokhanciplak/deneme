@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+{% block page %} Profile {% endblock %}
+
+{% block Content %}
+
+    {% if error %}
+<p>{{ error }}</p>
+{% endif %}
+        <form method="post" action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            <img src="{{MEDIA_URL}}{{ user_p.image}}" alt="some_text">
+            <table>
+             <tr><td>Email</td><td>{{ user.email }}</td></tr>
+
+            <tr><td>Interests</td><td><input type="text"  name="int" value="{{ user_p.interests }}"></td></tr>
+
+            <tr><td>First Name</td><td><input type="text" name="name" value="{{ user.first_name }}"></td></tr>
+
+            <tr><td>Last Name</td><td><input type="text" name="lname" value="{{ user.last_name }}"></td></tr>
+
+            <tr>  <br> <td>Image </td><td><input name="image" type="file"  value="{{ user_p.image }}"></td></tr>
+
+            <tr><td> </td><td><input type="submit" value="Update" id="create">
+            <input type="reset" value="reset" id="reset"> </td></tr></table>
+        </form>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% block page %} Profile {% endblock %}
+
+{% block Content %}
+
+<form method="post" action="." enctype="multipart/form-data">
+
+            {% csrf_token %}
+            {{ error }}
+            <table style="margin-top: 50px;"><tr><td>Email</td><td>{{ userf.email }}</td></tr>
+
+            <tr><td> </td><td><input type="submit" value="Change Email" id="create">
+            <input type="reset" value="reset" id="reset"> </td></tr></table>
+         {% if messages %}
+<ul class="messages" >
+    {% for message in messages %}
+    <li> {% if message.tags %} {{ message.tags }}::{% endif %}{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</form>
+{% endblock %}

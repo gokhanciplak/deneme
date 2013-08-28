@@ -10,11 +10,105 @@ var dv=document.getElementById(k).style.display
     document.getElementById(k).style.display='none';
     else
     document.getElementById(k).style.display='block';
+write();
+}
+function write()
+{
 
+
+    document.getElementByName("email").innerHTML="fjrbfverbv";
 }
 </script>
 
+<style>
+        .bdy
+    {
+        background-color: #d3d3d3; max-width: 720px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
 
+    .post
+    {
+        margin-left: 10px;
+        margin-top: 10px;
+        background-color: lightcyan; max-width: 700px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+        .comment
+    {
+        background-color: #fffee8;
+        max-width: 550px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+        .main
+    {
+        background-color: #fffacd;
+        max-width: 600px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+          .postcomment
+    {
+        background-color: lavenderblush;
+        max-width: 600px;
+        margin-left: 90px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+</style>
 
 
 
@@ -22,8 +116,10 @@ var dv=document.getElementById(k).style.display
 </head>
 <body>
 
-<div>
- <table height="350" width="700" border=1>
+<div class="bdy">
+    <br>
+ <div class="post">
+ <table height="350" width="700" >
 
  <tr>
      <td>{{ post.title }}</td><td>{{ post.date }}</td>
@@ -36,33 +132,49 @@ var dv=document.getElementById(k).style.display
 
 
  <tr>
-     <td>user</td><td>categories</td>
+     <td>{{ post.userid.first_name }} {{post.userid.last_name  }}</td>
+     <td>
+         {{ post.categories.name  }}
+     </td>
  </tr>
 
 
  <tr>
-     <td>keywords</td><td align="right"> <input type="button" onclick="change('cmm')" value="comments"></td>
+     <td>{{ post.keywords}}</td>
+
+     <td align="right"> <input type="button" onclick="change('cmm')" value="comments"></td>
  </tr>
 
  </table>
+        </div>
+    <br>
 <div id="cmm" style="margin-left: 75pt">
  {% for p_c in post_comments %}
 
   <div class="main">
-    <table height="100" width="600" border="1">
+    <table height="100" width="600" >
 
         <tr>
-            <td>user</td><td>date</td>
+            <td> {%if p_c.user %}
+                {{p_c.user.first_name}}{{p_c.user.last_name}}
+                {% else %}
+                Anonymous User
+                {% endif %}
+            </td>
+            <td>
+                {{p_c.pubdate}}
+            </td>
         </tr>
         <tr>
             <td height="80" colspan="2">{{ p_c.id }}</td>
         </tr>
         <tr>
-            <td colspan="2" align="right" ><input type="button" value="replies" onclick="change('{{p_c.id}}')"> </td>
+            <td colspan="2" align="right" ><input type="button" value="reply" onclick="change('{{p_c.id}}')"> </td>
         </tr>
 
     </table>
    </div>
+    <br>
    <div id="{{p_c.id}}" style="display: none">
       <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
@@ -71,23 +183,31 @@ var dv=document.getElementById(k).style.display
 
             <input type="hidden" name="c_type" value="Comment">
 
-            <table style="margin-left: 38pt;" border="1">
+            <table style="margin-left: 38pt;" >
                 <tr>
                     <td>
                         E-mail</td>
-                    <td><input type="text" name="email" value="{{user.email}}">
+                    <td>
+                        {% if user %}
+                        <input type="text" name="email" value="{{user.email}}">
+
+                        {% else %}
+                        {{form.email}}
+                        {% endif%}
+
+
                     </td>
                 </tr>
 
                 <tr>
                    <td colspan="2">
-                        <textarea name="text" rows="7" cols="52"></textarea>
+                        <textarea name="text" rows="5" cols="62"></textarea>
                    </td>
                 </tr>
 
 
                 <tr>
-                    <td colspan="2"> <input name="btn{{ p_c.id }}" type="submit" value="reply" id="create">
+                    <td align="right" colspan="2"> <input name="btn{{ p_c.id }}" type="submit" value="reply" id="create">
                     </td>
                 </tr>
 
@@ -98,12 +218,20 @@ var dv=document.getElementById(k).style.display
 
 {% for com in cc %}
     {% ifequal com.object_id p_c.id  %}
-    <div class="sub" style="margin-left: 38pt;" >
+    <div class="comment" style="margin-left: 38pt;" >
 
-    <table height="80" width="550" border="1">
+    <table height="80" width="550" >
 
         <tr>
-            <td>{{ com.user }}</td><td>{{ com.pubdate}}</td>
+            <td>{%if com.user %}
+                {{com.user.first_name}} {{com.user.last_name}}
+                {% else %}
+                Anonymous User
+                {% endif %}
+            </td>
+            <td>
+                {{ com.pubdate}}
+            </td>
         </tr>
         <tr>
             <td height="90" colspan="2">{{ com.text }}</td>
@@ -114,7 +242,7 @@ var dv=document.getElementById(k).style.display
 
    </div>
 
-
+<br>
      {% endifequal %}
 
   {% endfor %}
@@ -123,22 +251,30 @@ var dv=document.getElementById(k).style.display
 
 
 </div>
-    <div>
-
-<form action="." method="post">
-    {% csrf_token % }
+    <div class="postcomment">
+<form method="post" action="." enctype="multipart/form-data">
+    {%csrf_token%}
     <table>
-        <tr>
-            <td align="center">
+            <tr>
 
 
-              {{user}}
-            </td>
-        </tr>
+                    <td>
+                        E-mail:
+                        {% if user %}
+                        <input type="text" name="email" value="{{user.email}}">
+
+                        {% else %}
+                        {{form.email}}
+                        {% endif%}
+
+
+                    </td>
+                </tr>
+
         <tr>
             <td>
 
-               <textarea rows="9" cols="72">
+               <textarea name="text" rows="7" cols="65">
 
               </textarea>
                 <input type="hidden" name="replyfor" value="{{ post.id }}">
@@ -147,12 +283,13 @@ var dv=document.getElementById(k).style.display
             </td>
         </tr>
         <tr>
-                    <td colspan="2"> <input name="btn{{ p_c.id }}" type="submit" value="reply" id="create">
+                    <td align="right" colspan="2"> <input name="btn" type="submit" value="reply" id="creates">
                     </td>
           </tr>
     </table>
-  </form>
+</form>
 </div>
+    <br>
 </div>
 
 

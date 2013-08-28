@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load i18n %}
+     <style>
+       .menu
+    {
+        margin-left: 10px;
+        margin-top: 10px;
+        background-color: lightcyan;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+        li{
+            list-style: none;
+        }
+                .container
+    {
+        margin-top: 10px;
+        background-color: lightcyan;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+            .post
+    {
+        margin-left: 10px;
+        margin-top: 10px;
+        background-color: lightcyan; max-width: 700px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    </style>
+    <title></title>
+</head>
+<body>
+    <div id="main-wrapper" style="width: 850px">
+        <div id="menu" style="width: 200px; float: left">
+            <div class="menu" >
+                <h3 style="margin-left: 40px;">Menu</h3>
+                <ul>
+                    <a href="{% url post %}"> <li> {% trans "Home" %} </li> </a>
+                    {% if user.is_authenticated == False %}
+                    <a href="http://127.0.0.1:8000/login"> <li>{% trans "Login" %} </li></a>
+
+                    <a href="http://127.0.0.1:8000/add_person "><li>{% trans "Register" %} </li> </a>
+                    {% endif %}
+                    <li>{% trans "Contact" %} </li>
+                    <li>{% trans "About" %} </li>
+                </ul>
+            </div>
+            {% if user.is_authenticated %}
+            <div class="menu" style="width: 200px; ">
+                <h3 style="margin-left: 40px;"> Welcome:
+                <br> {{user.first_name }} {{user.last_name}}</h3>
+                <ul>
+                    <a href=" {% url update_user %}"> <li>{% trans "My Account" %} </li></a>
+                    <a href="http://127.0.0.1:8000/myposts"> <li>{% trans "My Posts" %} </li> </a>
+                    <a href="{% url change_password %}"> <li>{% trans "Change Password" %} </li> </a>
+                    <a href="{% url change_email %}"> <li>{% trans "Change Email" %} </li> </a>
+                    <a href="http://127.0.0.1:8000/logout"> <li>{% trans "Logout" %} </li> </a>
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div id="container" style="width: 600px; float: right">
+            {% block Content%}
+
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

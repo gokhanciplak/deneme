@@ -1,0 +1,86 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# gokhan, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-22 14:24+0300\n"
+"PO-Revision-Date: 2013-08-22 14:41+0300\n"
+"Last-Translator: gokhan <>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+
+#: blogs/forms.py:15
+msgid "email address"
+msgstr "Email adresi"
+
+#: blogs/forms.py:17
+msgid "password"
+msgstr "Şifre "
+
+#: blogs/forms.py:19
+msgid "password (again)"
+msgstr "Şifre Tekrar"
+
+#: blogs/views.py:39
+msgid "Passwords have to be same"
+msgstr "Şifreler aynı olmalı"
+
+#: blogs/views.py:45
+msgid "This e-mail was already in use"
+msgstr "Bu Mail adresi alınmış"
+
+#: blogs/views.py:190
+msgid "account disabled"
+msgstr "Kullanıcı Aktif değil"
+
+#: blogs/views.py:194
+msgid "invalid login"
+msgstr "Geçersiz Posta veya şifre"
+
+#: blogs/views.py:197
+msgid "form is invalid"
+msgstr "lütfen mail ve şifre girin"
+
+#: blogs/views.py:215
+msgid "Your email is verified"
+msgstr "Email adresiniz başarıyla onaylandı"
+
+#: blogs/views.py:217
+msgid "Your email is not verified"
+msgstr ""
+
+#: blogs/views.py:225
+msgid "Your comment is activated"
+msgstr ""
+
+#: blogs/views.py:227
+msgid "Your comment can not be activated"
+msgstr ""
+
+#: blogs/views.py:316
+msgid "Password was changed"
+msgstr "şifreniz değiştirildi."
+
+#: blogs/views.py:332
+msgid "Passwords must not be null"
+msgstr "şifre boş olamaz"
+
+#: blogs/views.py:334
+msgid "passwords are not matching"
+msgstr "şifreler aynı değil"
+
+#: blogs/views.py:336
+msgid "wrong password "
+msgstr "yanlış şifre"
+
+#: blogs/views.py:344
+msgid "Email Changed, Please Confirm Your E-mail "
+msgstr ""

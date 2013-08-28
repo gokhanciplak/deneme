@@ -1,0 +1,78 @@
+ <style>
+        .comment
+    {
+        background-color:lightblue;
+        width: 350px;
+        height: 100px;
+        -webkit-border-top-left-radius: 20px;
+        -webkit-border-top-right-radius: 20px;
+        -moz-border-radius-topleft: 20px;
+        -moz-border-radius-topright: 20px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+         -webkit-border-bottom-left-radius: 20px;
+        -webkit-border-bottom-right-radius: 20px;
+        -moz-border-radius-bottomleft: 20px;
+        -moz-border-radius-bottomright: 20px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+
+    }
+    .comment p{
+        padding-left: 15px;
+        padding-bottom: -15px;
+    }
+     ul li {
+         list-style: none;
+     }
+     .comment hr{
+
+     }
+        </style>
+    <script type="text/javascript">
+function change(r)
+{
+    var k = r;
+var dv=document.getElementById(k).style.display
+    if (dv=='block')
+    document.getElementById(k).style.display='none';
+    else
+    document.getElementById(k).style.display='block';
+write();
+}
+function write()
+{
+
+
+    document.getElementByName("email").innerHTML="fjrbfverbv";
+}
+          function change_types(r,s)
+{
+    var k = r;
+    var m= s;
+    var dv=document.getElementById('rp')
+    dv.value=k;
+    var rv=document.getElementById('ct')
+    rv.value=m;
+    var com_form=document.getElementById('com')
+    com_form.focus()
+
+
+}
+</script>
+{% for sub in subs%}
+{% if parent.id = sub.object_id %}
+<ul>
+
+<div class="comment" id="{{ sub.id }}">
+      <p>{{sub.user.first_name}} {{sub.user.last_name}}----{{sub.pubdate}} </p>
+<p>{{sub.text}}</p>
+<a href="#com"><input type="button"  value="reply" onclick="change_types('{{sub.id}}', 'Comment')"></a>
+</div>
+
+{% subcomment_tag  sub subs %}
+
+</ul>
+{% endif%}
+
+{% endfor%}
