@@ -27,7 +27,7 @@ def produce_val():
 
 
 def make_link(c_code, email):
-    url = '{% url confirm c_code  %}'
+    url = 'http://127.0.0.1:8000/confirm' + c_code
     send_mail('Gokhan Ciplak', url, 'gkhncplk@gmail.com',
               [email], fail_silently=False)
 
@@ -41,7 +41,7 @@ def send_act_code(act_code, email):
 
 
 def make_link2(act_code, email):
-    url = '{% url activate act_code  %}'
+    url = 'http://127.0.0.1:8000/activate' + act_code
     send_mail('Gokhan Ciplak', url, 'gkhncplk@gmail.com',
               [email], fail_silently=False)
 

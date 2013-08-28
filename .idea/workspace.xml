@@ -15,7 +15,7 @@
     <file path="/allposts.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377674593286" ignored="false" />
     <file path="/base.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377684438542" ignored="false" />
     <file path="/login.html" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377682565406" ignored="false" />
-    <file path="/tasks.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377690938680" ignored="false" />
+    <file path="/tasks.py" changelist="9266a31c-407c-481e-834b-0e59a7f7c33f" time="1377691622225" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,10 +44,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blogs/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="38" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.17193677">
+            <state line="43" column="38" selection-start="1910" selection-end="1910" vertical-scroll-proportion="-5.571429">
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -104,10 +104,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tasks.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="tasks.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="571" selection-end="571" vertical-scroll-proportion="-13.2">
+            <state line="29" column="50" selection-start="710" selection-end="710" vertical-scroll-proportion="0.55307263">
               <folding>
                 <element signature="e#22#37#0" expanded="true" />
               </folding>
@@ -158,9 +158,9 @@
         <option value="$PROJECT_DIR$/blogs/forms.py" />
         <option value="$PROJECT_DIR$/blogs/models.py" />
         <option value="$PROJECT_DIR$/blogs/tests.py" />
-        <option value="$PROJECT_DIR$/blog/tasks.py" />
         <option value="$PROJECT_DIR$/blog/urls.py" />
         <option value="$PROJECT_DIR$/blogs/views.py" />
+        <option value="$PROJECT_DIR$/blog/tasks.py" />
       </list>
     </option>
   </component>
@@ -607,11 +607,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/tasks.py">
+    <entry file="file://$PROJECT_DIR$/blogs/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="571" selection-end="571" vertical-scroll-proportion="-13.2">
+        <state line="43" column="38" selection-start="1910" selection-end="1910" vertical-scroll-proportion="-5.571429">
           <folding>
-            <element signature="e#22#37#0" expanded="true" />
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -625,11 +625,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blogs/views.py">
+    <entry file="file://$PROJECT_DIR$/blog/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="38" selection-start="1910" selection-end="1910" vertical-scroll-proportion="0.17193677">
+        <state line="29" column="50" selection-start="710" selection-end="710" vertical-scroll-proportion="0.55307263">
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <element signature="e#22#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
