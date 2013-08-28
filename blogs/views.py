@@ -41,7 +41,7 @@ def add_person(request):
                                            'error': error},
                                           context_instance=RequestContext(request))
 
-            if User.objects.get(email=email):
+            if email_check(email) == 0:
                 error = ugettext('This e-mail was already in use')
                 return render_to_response('blog/add_person.html', {'user_form': user_form, 'error': error},
                                           context_instance=RequestContext(request))
@@ -157,7 +157,7 @@ def loginn(request):
         }, context_instance=RequestContext(request))
 
 
-def conf2(request, c_code):
+def confirm(request, c_code):
     if confirm_email(c_code):
         msg = ugettext("Your email is verified")
     else:
@@ -222,6 +222,11 @@ class EmailOrUsernameModelBackend(object):
             return None
 
     def get_user(self, user_id):
+        """
+
+        :param user_id:
+        :return:
+        """
         try:
             return User.objects.get(pk=user_id)
         except User.DoesNotExist:
@@ -412,7 +417,7 @@ def logout_view(request):
 def email_check(email):
     try:
         User.objects.get(email=email)
-        return True
+        return 0
     except:
-        return False
+        return 1
 

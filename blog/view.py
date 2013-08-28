@@ -8,6 +8,8 @@ def handler404(request):
     )
     response.status_code = 404
     return response
+
+
 def handler500(request):
     response = render(
         request,

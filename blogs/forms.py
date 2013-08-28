@@ -6,7 +6,6 @@ from django.forms import ModelForm, Form
 from models import Post, Comment
 from django.utils.translation import ugettext_lazy as _
 from ckeditor.fields import RichTextField
-
 attrs_dict = {'class': 'required'}
 
 

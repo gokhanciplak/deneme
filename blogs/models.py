@@ -7,7 +7,6 @@ from django.utils.datetime_safe import datetime
 
 
 class UserProfile(models.Model):
-
     user = models.ForeignKey(User)
     image= models.ImageField(null=True, upload_to="images")
     interests=models.CharField(max_length=50)
@@ -15,7 +14,6 @@ class UserProfile(models.Model):
     exp_date=models.DateField()
 
 class Category(models.Model):
-
     name = models.CharField(u"Category",max_length = 255)
     slug = models.SlugField(u"Slug")
 

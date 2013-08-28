@@ -13,13 +13,12 @@ import PIL
 
 
 @task
-def send(c_code,email):
-
-    send_mail('Gokhan Ciplak',c_code, 'gkhncplk@gmail.com', [email], fail_silently = False)
-    make_link(c_code,email)
-    p=datetime.now()
-    print p
-    print 'c_code'+c_code
+def send(c_code, email):
+    send_mail('Gokhan Ciplak', c_code,
+              'gkhncplk@gmail.com',
+              [email],
+              fail_silently=False)
+    make_link(c_code, email)
 
 
 def produce_val():
@@ -27,38 +26,39 @@ def produce_val():
     return uid.hex
 
 
-def make_link(c_code,email):
-    url = 'http://127.0.0.1:8000/'+c_code+'/confirm'
-    send_mail('Gokhan Ciplak',url, 'gkhncplk@gmail.com',
-    [email], fail_silently = False)
+def make_link(c_code, email):
+    url = '{% url confirm c_code  %}'
+    send_mail('Gokhan Ciplak', url, 'gkhncplk@gmail.com',
+              [email], fail_silently=False)
+
+
 @task
 def send_act_code(act_code, email):
-    send_mail('Comment Activation', act_code, 'gkhncplk@gmail.com', [email], fail_silently = False)
-    make_link2(act_code,email)
+    send_mail('Comment Activation', act_code,
+              'gkhncplk@gmail.com', [email],
+              fail_silently=False)
+    make_link2(act_code, email)
 
-    print 'act_code'+act_code
 
-def make_link2(act_code,email):
-    url = 'http://127.0.0.1:8000/'+act_code+'/activate'
-    send_mail('Gokhan Ciplak',url, 'gkhncplk@gmail.com',
-    [email], fail_silently = False)
+def make_link2(act_code, email):
+    url = '{% url activate act_code  %}'
+    send_mail('Gokhan Ciplak', url, 'gkhncplk@gmail.com',
+              [email], fail_silently=False)
+
 
 @task
 def resize_image(image):
+    """
+
+    :param image:
+    """
     import PIL
     from PIL import Image
 
-
     basewidth = 200
-    img = Image.open("/home/gokhan/deneme3/blog/uploads/"+str(image))
+    img = Image.open("/home/gokhan/deneme3/blog/uploads/" + str(image))
     new_image = img
-    wpercent = (basewidth/float(img.size[0]))
-    hsize = int((float(img.size[1])*float(wpercent)))
+    wpercent = (basewidth / float(img.size[0]))
+    hsize = int((float(img.size[1]) * float(wpercent)))
     new_image = new_image.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
-    print new_image
     new_image.save('/home/gokhan/deneme3/blog/uploads/' + str(image))
-    print new_image
-
-
-
-
