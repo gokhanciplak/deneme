@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render, redirect
 from django.template.defaulttags import register
 from django.template.loader import get_template
 from django.template import Context, RequestContext
@@ -36,15 +36,13 @@ def add_person(request):
             image = user_form.cleaned_data['image']
             if password != password_t:
                 error = ugettext('Passwords have to be same')
-                return render_to_response('blog/add_person.html',
+                return render(request,'blog/add_person.html',
                                           {'user_form': user_form,
-                                           'error': error},
-                                          context_instance=RequestContext(request))
+                                           'error': error})
 
-            if email_check(email) == 0:
+            if email_check(email):
                 error = ugettext('This e-mail was already in use')
-                return render_to_response('blog/add_person.html', {'user_form': user_form, 'error': error},
-                                          context_instance=RequestContext(request))
+                return render(request,'blog/add_person.html', {'user_form': user_form, 'error': error})
             else:
                 new_user = User(first_name=first_name,
                                 last_name=last_name,
@@ -70,7 +68,7 @@ def add_person(request):
         user_form = UserCreationForm()
     return render(request,
                   'blog/add_person.html',
-                  {'user_form': user_form}, context_instance=RequestContext(request))
+                  {'user_form': user_form})
 
 
 @login_required(login_url='/login')
@@ -84,8 +82,8 @@ def add_post(request):
             image = post_form.cleaned_data['image']
             text = post_form.cleaned_data['text']
             slug = title
-            try:
-                new_post = Post(title=title,
+
+            new_post = Post(title=title,
                                 userid=request.user,
                                 slug=slug,
                                 keywords=keywords,
@@ -93,33 +91,26 @@ def add_post(request):
                                 text=text,
                                 description=description,
                                 date=datetime.now())
-                new_post.save()
-                post_form = PostForm()
-                return render(request,
+            new_post.save()
+            post_form = PostForm()
+            return render(request,
                               'blog/add_post.html',
-                              {'post_form': post_form},
-                              context_instance=RequestContext(request))
-            except:
-                user_form = UserCreationForm()
-                return render(request,
-                              'blog/add_person.html',
-                              {'user_form': user_form},
-                              context_instance=RequestContext(request))
+                              {'post_form': post_form})
+
     else:
         post_form = PostForm()
     ctx = {'post_form': post_form}
-    return render(render,
+    return render(request,
                   'blog/add_post.html',
-                  ctx, context_instance=RequestContext(request))
+                  ctx, )
 
 
 def loginn(request):
     def errorHandle(error):
         form = LoginForm()
-        return render_to_response('blog/login.html', {
+        return render(request, 'blog/login.html', {
             'error': error,
-            'form': form,
-        }, context_instance=RequestContext(request))
+            'form': form,})
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -134,7 +125,7 @@ def loginn(request):
                     login(request, user)
                     user_profile = get_object_or_404(UserProfile, user=user.id)
                     print user_profile
-                    return HttpResponseRedirect('/profile')
+                    return redirect('/profile')
                     # return render(request, 'blog/profile.html', {
                     #     'user': user,'user_p': user_profile,
                     # }, context_instance=RequestContext(request))
@@ -178,34 +169,30 @@ def activate(request, c_code):
 
 def confirm_email(c_code):
     user_pr = get_object_or_404(UserProfile, conf_code=c_code)
-    user = get_object_or_404(User, id=user_pr.user_id)
-    user.is_active = 1
-    user.save()
+    user_pr.user.is_active = 1
+    user_pr.user.save()
     return True
 
 
 def confirm_comment(c_code):
     act = get_object_or_404(Activation, conf_code=c_code)
-    comment = get_object_or_404(Comment, id=act.comment.id)
-    comment.is_active = 1
-    comment.save()
+    act.comment.is_active = 1
+    act.comment.save()
     return True
 
 
 def posts(request):
     posts = Post.objects.order_by('-id')
-    t = get_template('blog/allposts.html')
-    html = t.render(Context({'posts': posts,
-                             'user': request.user, }))
-    return HttpResponse(html)
+    return render(request,'blog/allposts.html',
+                  {'posts': posts,
+                   'user': request.user,})
 
 
 def my_posts(request):
     posts = Post.objects.filter(userid=request.user)
-    t = get_template('blog/myposts.html')
-    html = t.render(Context({'posts': posts,
-                             'user': request.user, }))
-    return HttpResponse(html)
+    return render(request,'blog/myposts.html',
+                  {'posts': posts,
+                   'user': request.user,})
 
 
 class EmailOrUsernameModelBackend(object):
@@ -257,12 +244,14 @@ def update_user(request):
             user_profile.image = data2["image"]
             user_profile.save()
             resize_image.delay(user_profile.image)
-        except:
+        except UserProfile.DoesNotExist:
             pass
+
+
+
     return render(request, 'blog/profile.html',
                   {'user': user,
-                   'user_p': user_profile, },
-                  context_instance=RequestContext(request))
+                   'user_p': user_profile, })
 
 
 @login_required(login_url='/login')
@@ -272,8 +261,7 @@ def change_password(request):
     error = ugettext('Password was changed')
     if request.method != "POST":
         return render(request, 'blog/changepassword.html',
-                      {'user': user, },
-                      context_instance=RequestContext(request))
+                      {'user': user, })
     if request.method == "POST":
 
         if user.check_password(data.get("old_pass")):
@@ -291,8 +279,7 @@ def change_password(request):
             error = ugettext('wrong password ')
 
     return render(request, 'blog/changepassword.html',
-                  {'user': user, 'error': error},
-                  context_instance=RequestContext(request))
+                  {'user': user, 'error': error},)
 
 
 @login_required(login_url='/login')
@@ -301,8 +288,8 @@ def change_email(request):
     error = ugettext('Email Changed, Please Confirm Your E-mail ')
     form = UserCreationForm(request.POST)
     if request.method != "POST":
-        return render(request, 'blog/email.html', {'userf': form, },
-                      context_instance=RequestContext(request))
+        return render(request, 'blog/email.html',
+                      {'userf': form, })
     if request.method == "POST":
         data = request.POST
         email = data.get("email")
@@ -312,8 +299,7 @@ def change_email(request):
                 messages.warning("You can not use this e-mail")
                 return render(request,
                               'blog/email.html',
-                              {'userf': form, 'user': request.user, },
-                              context_instance=RequestContext(request))
+                              {'userf': form, 'user': request.user, })
             else:
                 user.is_active = 0
                 user.email = email
@@ -328,25 +314,16 @@ def change_email(request):
                 return render(request, 'blog/email.html',
                               {'userf': form,
                                'error': error,
-                               'user': request.user, },
-                              context_instance=RequestContext(request))
+                               'user': request.user, })
         else:
             messages.error(request, "Enter a valid email")
     return render(request,
                   'blog/email.html',
                   {'userf': form,
-                   'user': request.user, },
-                  context_instance=RequestContext(request))
+                   'user': request.user, })
 
 
-@register.inclusion_tag('blog/children.html')
-def subcomment_tag(parent, sub):
-    parent = parent
-    sub = sub
-    return {'parent': parent, 'subs': sub, }
-
-
-def dnm(request, post_id):
+def detail(request, post_id):
     """
 
     :param request:
@@ -365,11 +342,11 @@ def dnm(request, post_id):
             c_type = request.POST.get("c_type")
             obj_id = request.POST.get("replyfor")
 
-        if c_type == "Comment":
-            c_model = Comment
+            if c_type == "Comment":
+                c_model = Comment
 
-        if c_type == "Post":
-            c_model = Post
+            if c_type == "Post":
+                c_model = Post
 
             con_type = ContentType.objects.get_for_model(c_model)
             new_comment = Comment(email=email,
@@ -388,7 +365,7 @@ def dnm(request, post_id):
             else:
 
                 if email_check(email):
-                    return HttpResponseRedirect('/')
+                    return redirect('/')
                 else:
                     act_code = produce_val()
                     send_act_code.delay(act_code,
@@ -404,20 +381,19 @@ def dnm(request, post_id):
     return render(request, 'blog/deneme.html', {'parents': parents,
                                                 'subs': subs, 'post': post,
                                                 'r_user': request.user,
-                                                'form': form, },
-                  context_instance=RequestContext(request))
+                                                'form': form, })
 
 
 @login_required(login_url='/login')
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return redirect('/')
 
 
 def email_check(email):
     try:
         User.objects.get(email=email)
-        return 0
-    except:
-        return 1
+        return True
+    except User.DoesNotExist:
+        return False
 

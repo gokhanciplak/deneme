@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     url(r'^changep/$', views.change_password, name='change_password'),
     url(r'^changee/$', views.change_email, name='change_email'),
     url(r'^logout/$', views.logout_view, name='logout'),
-    url(r'^dnm/(?P<post_id>.+)/$', views.dnm, name='dnm'),
+    url(r'^dnm/(?P<post_id>.+)/$', views.detail, name='dnm'),
 
 )
 if settings.DEBUG:

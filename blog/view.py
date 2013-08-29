@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
 def handler404(request):
-    print "deneme"
     response = render(
         request,
         'blog/404.html'

@@ -10,7 +10,8 @@ from django.template.loader import get_template
 from uuid import uuid4
 from datetime import datetime
 import PIL
-
+from django.contrib.sites.models import Site
+from settings import MEDIA_URL
 
 @task
 def send(c_code, email):
@@ -27,7 +28,7 @@ def produce_val():
 
 
 def make_link(c_code, email):
-    url = 'http://127.0.0.1:8000/confirm' + c_code
+    url = str(Site.objects.get_current()) +'/confirm/' + c_code
     send_mail('Gokhan Ciplak', url, 'gkhncplk@gmail.com',
               [email], fail_silently=False)
 
@@ -41,7 +42,7 @@ def send_act_code(act_code, email):
 
 
 def make_link2(act_code, email):
-    url = 'http://127.0.0.1:8000/activate' + act_code
+    url = str(Site.objects.get_current())+'/activate/' + act_code
     send_mail('Gokhan Ciplak', url, 'gkhncplk@gmail.com',
               [email], fail_silently=False)
 
@@ -56,9 +57,9 @@ def resize_image(image):
     from PIL import Image
 
     basewidth = 200
-    img = Image.open("/home/gokhan/deneme3/blog/uploads/" + str(image))
+    img = Image.open( str(Site.objects.get(id=2))+MEDIA_URL + str(image))
     new_image = img
     wpercent = (basewidth / float(img.size[0]))
     hsize = int((float(img.size[1]) * float(wpercent)))
     new_image = new_image.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
-    new_image.save('/home/gokhan/deneme3/blog/uploads/' + str(image))
+    new_image.save(str(Site.objects.get(id=2))+ MEDIA_URL + str(image))

@@ -2,33 +2,36 @@ import djcelery
 djcelery.setup_loader()
 import os
 
+# celery and rabbitmq settings
 BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 BROKER_BACKEND="amqp"
+CELERY_SEND_EVENTS = True
+CELERY_RESULT_BACKEND ='amqp'
+
+#redis settings
 REDIS_PORT=6379
 REDIS_HOST = "127.0.0.1"
 BROKER_USER = ""
 BROKER_PASSWORD = ""
 REDIS_DB = 0
 REDIS_CONNECT_RETRY = True
-CELERY_SEND_EVENTS = True
-CELERY_RESULT_BACKEND ='amqp'
+
 CELSESSION_ENGINE = 'redis_sessions.session'
 SESSION_REDIS_UNIX_DOMAIN_SOCKET_PATH = '/var/run/redis/redis.sock'
 CELERY_TASK_RESULT_EXPIRES =  10
 CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
+
+
+
+
+# needed settings to send email via smtp
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'gkhncplk@gmail.com'
-EMAIL_HOST_PASSWORD = '153,123asd'
+EMAIL_HOST_USER = 'blogzor42@gmail.com'
+EMAIL_HOST_PASSWORD = 'blogzorovski'
 EMAIL_PORT = 587
-
-BROKER_HOST = "localhost"
-BROKER_PORT = 5672
-BROKER_USER = "gokhan"
-BROKER_PASSWORD = "123456"
-BROKER_VHOST = "/myhost"
-CELERY_RESULT_BACKEND = "amqp"
 
 CELERY_IMPORTS = ("blog.tasks",)
 
@@ -172,6 +175,8 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+SITE_ID = 1
 
 INSTALLED_APPS = (
     'django.contrib.auth',
